@@ -22,19 +22,19 @@ simulated_data_generation <- function(configuration_setting){
 
   ## Rotate each component
   A11 = rotate_component(commonComponent, 0)
-  A12 = rotate_component(commonComponent, pi / 6)
-  A21 = rotate_component(commonComponent, pi / 3)
-  A22 = rotate_component(commonComponent, pi / 2)
+  A12 = rotate_component(commonComponent, 0)
+  A21 = rotate_component(commonComponent, 0)
+  A22 = rotate_component(commonComponent, 0)
 
   B11 = rotate_component(partialComponent[[1]], 0)
-  B12 = rotate_component(partialComponent[[1]], pi / 4)
+  B12 = rotate_component(partialComponent[[1]], 0)
   B21 = rotate_component(partialComponent[[2]], 0)
-  B22 = rotate_component(partialComponent[[2]], pi / 4)
+  B22 = rotate_component(partialComponent[[2]], 0)
 
   C11 = rotate_component(partialComponent[[3]], 0)
   C12 = rotate_component(partialComponent[[4]], 0)
-  C21 = rotate_component(partialComponent[[3]], pi / 4)
-  C22 = rotate_component(partialComponent[[4]], pi / 4)
+  C21 = rotate_component(partialComponent[[3]], 0)
+  C22 = rotate_component(partialComponent[[4]], 0)
 
   D11 = rotate_component(individualComponent[[1]], 0)
   D12 = rotate_component(individualComponent[[2]], 0)

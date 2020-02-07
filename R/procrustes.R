@@ -4,7 +4,6 @@
 #' @param A The objective matrix to be approximated
 #' @param B The matrix to be used to approximate
 #' @keywords procrustes
-#' @export
 
 Procrustes <- function(A, B){
   C = A %*% t(B)

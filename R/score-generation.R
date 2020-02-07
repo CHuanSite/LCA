@@ -5,7 +5,6 @@
 #' @param num_score How many scores needed.
 #' @param score_variance The variance of each scores.
 #' @keywords score
-#' @export
 
 score_generation <- function(dim_score, num_score, score_variance){
   sim_cov = diag(score_variance)
