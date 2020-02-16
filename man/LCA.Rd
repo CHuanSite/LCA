@@ -4,7 +4,7 @@
 \alias{LCA}
 \title{Linked Component Analysis(LCA) function.}
 \usage{
-LCA(dataset, group, factor_num, T = 100)
+LCA(dataset, group, factor_num, Time = 1000)
 }
 \arguments{
 \item{dataset}{A list containing all the datasets}
@@ -13,7 +13,7 @@ LCA(dataset, group, factor_num, T = 100)
 
 \item{factor_num}{A vector contains the number of factors each group should have}
 
-\item{T}{The maximum number of iterations allowed to have in the algorithm}
+\item{Time}{The maximum number of iterations allowed to have in the algorithm}
 }
 \description{
 This function allows you to implement the main algorithm LCA

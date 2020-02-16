@@ -4,7 +4,7 @@
 #' @param dataset A list containing all the datasets
 #' @param group A list containing the linked groups of datasets
 #' @param factor_num A vector contains the number of factors each group should have
-#' @param T The maximum number of iterations allowed to have in the algorithm
+#' @param Time The maximum number of iterations allowed to have in the algorithm
 #' @keywords LCA
 #' @export
 #' @examples
@@ -14,7 +14,8 @@
 #' factor_num = c(2, 2, 2, 2, 2, 2, 2, 2, 2)
 #' LCA(dataset, group, factor_num)
 
-LCA <- function(dataset, group, factor_num, T = 100){
+LCA <- function(dataset, group, factor_num, Time = 1000){
+
   ## Parameters to be initialized
   N = length(dataset)
   K = length(group)
@@ -42,11 +43,14 @@ LCA <- function(dataset, group, factor_num, T = 100){
     }
   }
 
+
+  loss = 0
+
   ## Start the Alternative Projection
-  for(t in 1 : T){
+  for(t in 1 : Time){
     matrix_score = c()
     for(i in 1 : N){
-      temp_score = 0
+      temp_score = c()
       for(j in 1 : K){
         temp_score = rbind(temp_score, score_list[[i]][[j]])
       }
@@ -57,9 +61,9 @@ LCA <- function(dataset, group, factor_num, T = 100){
     linked_component = Procrustes(combine_data, matrix_score)
     linked_component_list = list()
     index = 1
-    for(i in 1 : K){
-      linked_component_list[[i]] = linked_component[, index : (index + factor_num[i] - 1)]
-      index = index + factor_num[i]
+    for(j in 1 : K){
+      linked_component_list[[j]] = linked_component[, index : (index + factor_num[j] - 1)]
+      index = index + factor_num[j]
     }
 
     ## Compute the random scores for every dataset
@@ -71,9 +75,14 @@ LCA <- function(dataset, group, factor_num, T = 100){
           score_list[[i]][[j]] = matrix(0, nrow = factor_num[j], ncol = ncol(dataset[[i]]))
         }
       }
-
     }
+    loss_current = sum((combine_data - linked_component %*% matrix_score)^2)
+    if(abs(loss[length(loss)] - loss_current) / loss[length(loss)] < 0.00001){
+      return(list(linked_component_list = linked_component_list, score_list = score_list))
+    }
+    loss = c(loss, loss_current)
     print(t)
+    print(loss_current)
   }
 
   return(list(linked_component_list = linked_component_list, score_list = score_list))
